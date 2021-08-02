@@ -1,26 +1,29 @@
 
 // first class increase event handler 
 document.getElementById('first-class-increase-btn').addEventListener('click', function () {
-    handleFirstClassChange(true)
+    // handleFirstClassChange(true)
+    handleTicketChange('first-class-ticket', true)
 })
 
 
 // first class decrease event handler 
 document.getElementById('first-class-decrease-btn').addEventListener('click', function () {
-    handleFirstClassChange(false)
+    // handleFirstClassChange(false)
+    handleTicketChange('first-class-ticket', false)
 })
 
 
 //economic increase event handler
 document.getElementById('economic-increase-btn').addEventListener('click', function () {
-    // economicIncrease();
-    handleEconomicChange(true);
+    // handleEconomicChange(true);
+    handleTicketChange('economic-ticket', true)
 })
+
 
 
 //economic decrease event handler
 document.getElementById('economic-decrease-btn').addEventListener('click', function () {
-    handleEconomicChange(false);
+    handleTicketChange('economic-ticket', false)
 })
 
 
@@ -30,8 +33,9 @@ document.getElementById('book-now').addEventListener('click', function () {
 })
 
 
-function handleFirstClassChange(isIncrease){
-    const ticketCount = document.getElementById('first-class-ticket-count').value;
+function handleTicketChange( ticket, isIncrease){
+    const ticketCount = document.getElementById(ticket + '-count').value;
+    // const economicTicketNumber = parseInt(economicTicket) + 1;
     let ticketCountNumber = parseInt(ticketCount);
     if(isIncrease == true){
         ticketCountNumber = parseInt(ticketCount) + 1;
@@ -39,26 +43,43 @@ function handleFirstClassChange(isIncrease){
     if(isIncrease == false && ticketCountNumber > 0){
         ticketCountNumber = parseInt(ticketCount) - 1;
     }
-    document.getElementById('first-class-ticket-count').value = ticketCountNumber;
+    document.getElementById(ticket +'-count').value = ticketCountNumber;
     updatePrice();
     return ticketCount;
 }
 
 
-function handleEconomicChange(isIncrease){
-    const economicTicket = document.getElementById('economic-ticket-count').value;
-    // const economicTicketNumber = parseInt(economicTicket) + 1;
-    let economicTicketNumber = parseInt(economicTicket);
-    if(isIncrease == true){
-        economicTicketNumber = parseInt(economicTicket) + 1;
-    }
-    if(isIncrease == false && economicTicketNumber > 0){
-        economicTicketNumber = parseInt(economicTicket) - 1;
-    }
-    document.getElementById('economic-ticket-count').value = economicTicketNumber;
-    updatePrice();
-    return economicTicket;
-}
+
+
+// function handleFirstClassChange(isIncrease){
+//     const ticketCount = document.getElementById('first-class-ticket-count').value;
+//     let ticketCountNumber = parseInt(ticketCount);
+//     if(isIncrease == true){
+//         ticketCountNumber = parseInt(ticketCount) + 1;
+//     }
+//     if(isIncrease == false && ticketCountNumber > 0){
+//         ticketCountNumber = parseInt(ticketCount) - 1;
+//     }
+//     document.getElementById('first-class-ticket-count').value = ticketCountNumber;
+//     updatePrice();
+//     return ticketCount;
+// }
+
+
+// function handleEconomicChange(isIncrease){
+//     const economicTicket = document.getElementById('economic-ticket-count').value;
+//     // const economicTicketNumber = parseInt(economicTicket) + 1;
+//     let economicTicketNumber = parseInt(economicTicket);
+//     if(isIncrease == true){
+//         economicTicketNumber = parseInt(economicTicket) + 1;
+//     }
+//     if(isIncrease == false && economicTicketNumber > 0){
+//         economicTicketNumber = parseInt(economicTicket) - 1;
+//     }
+//     document.getElementById('economic-ticket-count').value = economicTicketNumber;
+//     updatePrice();
+//     return economicTicket;
+// }
 
 
 function updatePrice() {
@@ -70,6 +91,7 @@ function updatePrice() {
     document.getElementById('vat').innerText = vat;
     const total = parseFloat(vat) + subTotal;
     document.getElementById('total').innerText = total;
+    console.log({total})
     return total;
 }
 
@@ -80,6 +102,7 @@ function bookingInfo() {
     const purchaseEconomic = handleEconomicChange(true);
     const purchaseFirstClass = handleFirstClassChange(true);
     const ticketTotal = updatePrice();
+    console.log({ticketTotal});
     document.getElementById('purchase-first-class').innerText = purchaseFirstClass;
     document.getElementById('purchase-economic').innerText = purchaseEconomic;
     document.getElementById('ticket-total').innerText = ticketTotal;
