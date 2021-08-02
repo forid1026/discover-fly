@@ -33,78 +33,52 @@ document.getElementById('book-now').addEventListener('click', function () {
 })
 
 
-function handleTicketChange( ticket, isIncrease){
+//get input value
+function getInput(id){
+    const getValue = document.getElementById(id).value;
+    return getValue;
+}
+
+//event handler for ticket count
+function handleTicketChange(ticket, isIncrease) {
     const ticketCount = document.getElementById(ticket + '-count').value;
-    // const economicTicketNumber = parseInt(economicTicket) + 1;
     let ticketCountNumber = parseInt(ticketCount);
-    if(isIncrease == true){
+    if (isIncrease == true) {
         ticketCountNumber = parseInt(ticketCount) + 1;
     }
-    if(isIncrease == false && ticketCountNumber > 0){
+    if (isIncrease == false && ticketCountNumber > 0) {
         ticketCountNumber = parseInt(ticketCount) - 1;
     }
-    document.getElementById(ticket +'-count').value = ticketCountNumber;
+    document.getElementById(ticket + '-count').value = ticketCountNumber;
     updatePrice();
-    return ticketCount;
+
 }
 
 
-
-
-// function handleFirstClassChange(isIncrease){
-//     const ticketCount = document.getElementById('first-class-ticket-count').value;
-//     let ticketCountNumber = parseInt(ticketCount);
-//     if(isIncrease == true){
-//         ticketCountNumber = parseInt(ticketCount) + 1;
-//     }
-//     if(isIncrease == false && ticketCountNumber > 0){
-//         ticketCountNumber = parseInt(ticketCount) - 1;
-//     }
-//     document.getElementById('first-class-ticket-count').value = ticketCountNumber;
-//     updatePrice();
-//     return ticketCount;
-// }
-
-
-// function handleEconomicChange(isIncrease){
-//     const economicTicket = document.getElementById('economic-ticket-count').value;
-//     // const economicTicketNumber = parseInt(economicTicket) + 1;
-//     let economicTicketNumber = parseInt(economicTicket);
-//     if(isIncrease == true){
-//         economicTicketNumber = parseInt(economicTicket) + 1;
-//     }
-//     if(isIncrease == false && economicTicketNumber > 0){
-//         economicTicketNumber = parseInt(economicTicket) - 1;
-//     }
-//     document.getElementById('economic-ticket-count').value = economicTicketNumber;
-//     updatePrice();
-//     return economicTicket;
-// }
-
-
+//update price
 function updatePrice() {
-    const firstClassTicket = document.getElementById('first-class-ticket-count').value;
-    const economicTicket = document.getElementById('economic-ticket-count').value;
+    const firstClassTicket = getInput('first-class-ticket-count');
+    const economicTicket = getInput('economic-ticket-count');
     const subTotal = parseInt(firstClassTicket) * 150 + parseInt(economicTicket) * 100;
     document.getElementById('subtotal').innerText = subTotal;
     const vat = (subTotal / 100 * 10).toFixed(2);
     document.getElementById('vat').innerText = vat;
     const total = parseFloat(vat) + subTotal;
     document.getElementById('total').innerText = total;
-    console.log({total})
     return total;
 }
 
+
+//booking information handler
 function bookingInfo() {
+    const firstClassTicket = getInput('first-class-ticket-count');
+    const economicTicket = getInput('economic-ticket-count');
     document.getElementById('main-section').style.display = 'none';
     document.getElementById('header').style.display = '100vh';
     document.getElementById('booking-info').style.display = 'block';
-    const purchaseEconomic = handleEconomicChange(true);
-    const purchaseFirstClass = handleFirstClassChange(true);
     const ticketTotal = updatePrice();
-    console.log({ticketTotal});
-    document.getElementById('purchase-first-class').innerText = purchaseFirstClass;
-    document.getElementById('purchase-economic').innerText = purchaseEconomic;
+    document.getElementById('purchase-first-class').innerText = firstClassTicket;
+    document.getElementById('purchase-economic').innerText = economicTicket;
     document.getElementById('ticket-total').innerText = ticketTotal;
 }
 
