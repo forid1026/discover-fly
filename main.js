@@ -13,13 +13,14 @@ document.getElementById('first-class-decrease-btn').addEventListener('click', fu
 
 //economic increase event handler
 document.getElementById('economic-increase-btn').addEventListener('click', function () {
-    economicIncrease();
+    // economicIncrease();
+    handleEconomicChange(true);
 })
 
 
 //economic decrease event handler
 document.getElementById('economic-decrease-btn').addEventListener('click', function () {
-    economicDecrease();
+    handleEconomicChange(false);
 })
 
 
@@ -43,22 +44,20 @@ function handleFirstClassChange(isIncrease){
     return ticketCount;
 }
 
-function economicIncrease() {
 
+function handleEconomicChange(isIncrease){
     const economicTicket = document.getElementById('economic-ticket-count').value;
-    const economicTicketNumber = parseInt(economicTicket) + 1;
+    // const economicTicketNumber = parseInt(economicTicket) + 1;
+    let economicTicketNumber = parseInt(economicTicket);
+    if(isIncrease == true){
+        economicTicketNumber = parseInt(economicTicket) + 1;
+    }
+    if(isIncrease == false && economicTicketNumber > 0){
+        economicTicketNumber = parseInt(economicTicket) - 1;
+    }
     document.getElementById('economic-ticket-count').value = economicTicketNumber;
     updatePrice();
     return economicTicket;
-}
-
-
-function economicDecrease() {
-    const economicTicketDecrease = document.getElementById('economic-ticket-count').value;
-    const economicTicketNumber = parseInt(economicTicketDecrease) - 1;
-    document.getElementById('economic-ticket-count').value = economicTicketNumber;
-    updatePrice();
-
 }
 
 
@@ -78,7 +77,7 @@ function bookingInfo() {
     document.getElementById('main-section').style.display = 'none';
     document.getElementById('header').style.display = '100vh';
     document.getElementById('booking-info').style.display = 'block';
-    const purchaseEconomic = economicIncrease();
+    const purchaseEconomic = handleEconomicChange(true);
     const purchaseFirstClass = handleFirstClassChange(true);
     const ticketTotal = updatePrice();
     document.getElementById('purchase-first-class').innerText = purchaseFirstClass;
