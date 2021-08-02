@@ -1,24 +1,27 @@
 
-
 // first class increase event handler 
 document.getElementById('first-class-increase-btn').addEventListener('click', function () {
-    firstClassIncrease();
+    handleFirstClassChange(true)
 })
 
 
 // first class decrease event handler 
 document.getElementById('first-class-decrease-btn').addEventListener('click', function () {
-    firstClassDecrease();
+    handleFirstClassChange(false)
 })
+
 
 //economic increase event handler
 document.getElementById('economic-increase-btn').addEventListener('click', function () {
     economicIncrease();
 })
+
+
 //economic decrease event handler
 document.getElementById('economic-decrease-btn').addEventListener('click', function () {
     economicDecrease();
 })
+
 
 //booking info
 document.getElementById('book-now').addEventListener('click', function () {
@@ -26,49 +29,19 @@ document.getElementById('book-now').addEventListener('click', function () {
 })
 
 
-// function getInput(){
-//     const ticketCount = document.getElementById('first-class-ticket-count').value;
-//     const ticketCountNumber = parseInt(ticketCount) + 1;
-//     document.getElementById('first-class-ticket-count').value = ticketCountNumber;
-//     return ticketCountNumber;
-// }
-
-
-
-
-function firstClassIncrease() {
-
+function handleFirstClassChange(isIncrease){
     const ticketCount = document.getElementById('first-class-ticket-count').value;
-    const ticketCountNumber = parseInt(ticketCount) + 1;
+    let ticketCountNumber = parseInt(ticketCount);
+    if(isIncrease == true){
+        ticketCountNumber = parseInt(ticketCount) + 1;
+    }
+    if(isIncrease == false && ticketCountNumber > 0){
+        ticketCountNumber = parseInt(ticketCount) - 1;
+    }
     document.getElementById('first-class-ticket-count').value = ticketCountNumber;
     updatePrice();
     return ticketCount;
 }
-
-
-function firstClassDecrease() {
-
-    const ticketCount = document.getElementById('first-class-ticket-count').value;
-    const ticketCountNumber = parseInt(ticketCount) - 1;
-    document.getElementById('first-class-ticket-count').value = ticketCountNumber;
-    updatePrice();
-    
-}
-
-
-// function handleTicketChange(isIncrease){
-//     const ticketCount = document.getElementById('first-class-ticket-count').value;
-//     // const ticketCountNumber = parseInt(ticketCount) + 1;
-//     let ticketCountNumber = parseInt(ticketCount);
-//     if(isIncrease == true){
-//         ticketCountNumber = parseInt(ticketCount) + 1;
-//     }
-//     if(isIncrease == false){
-//         ticketCountNumber = parseInt(ticketCount) - 1;
-//     }
-//     document.getElementById('first-class-ticket-count').value = ticketCountNumber;
-//     updatePrice();
-// }
 
 function economicIncrease() {
 
@@ -106,7 +79,7 @@ function bookingInfo() {
     document.getElementById('header').style.display = '100vh';
     document.getElementById('booking-info').style.display = 'block';
     const purchaseEconomic = economicIncrease();
-    const purchaseFirstClass = firstClassIncrease();
+    const purchaseFirstClass = handleFirstClassChange(true);
     const ticketTotal = updatePrice();
     document.getElementById('purchase-first-class').innerText = purchaseFirstClass;
     document.getElementById('purchase-economic').innerText = purchaseEconomic;
